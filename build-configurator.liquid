@@ -1,0 +1,210 @@
+{{ 'build-configurator.css' | asset_url | stylesheet_tag }}
+<div class="loader-wrapper" id="loader-wrapper">
+  <div class="inner">
+    <span class="loader" id="loader"></span>
+    <p id="thankyou">Thank you for submitting your quote request! We’ve received your details and will get back to you shortly. If you have any questions in the meantime, feel free to reach out.</p>
+  </div>
+</div>
+<div class="product-configurator" data-configurator>
+  <div class="inner">
+  <a href="" class="restart-link" data-restart>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 8c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6v2l4-3-4-3v2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8h-2z" fill="currentColor"/>
+    </svg>
+    Restart
+  </a>
+
+  <div class="configurator-logo">
+   <a href="https://autospec4x4.com.au/">
+    <img src="https://cdn.shopify.com/s/files/1/0580/6050/5263/files/autospec-white_png.png?v=1739860494" 
+    alt="AutoSpec Logo" width="160"></a>
+   </a>
+  </div>
+{% comment %}
+  <h1 class="configurator-title">{{ section.settings.configurator_title }}</h1>
+{% endcomment %}
+  <div class="configurator-progress">
+    <div class="progress-bar">
+      <div class="progress-fill" data-progress></div>
+    </div>
+    <div class="step-counter" data-step-counter></div>
+  </div>
+<!-- alert message -->
+<div class="error-wrapper">
+  <div class="error-message">
+  <div><p>Please select an option before proceeding to the next step.</p></div>
+    <div>
+        <svg width="15px" height="15px" viewBox="0 0 25 25" class="error-close" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+          <title>cross</title>
+          <desc>Created with Sketch Beta.</desc>
+          <defs></defs>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+            <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-469.000000, -1041.000000)" fill="#fff">
+            <path d="M487.148,1053.48 L492.813,1047.82 C494.376,1046.26 494.376,1043.72 492.813,1042.16 C491.248,1040.59 488.712,1040.59 487.148,1042.16 L481.484,1047.82 L475.82,1042.16 C474.257,1040.59 471.721,1040.59 470.156,1042.16 C468.593,1043.72 468.593,1046.26 470.156,1047.82 L475.82,1053.48 L470.156,1059.15 C468.593,1060.71 468.593,1063.25 470.156,1064.81 C471.721,1066.38 474.257,1066.38 475.82,1064.81 L481.484,1059.15 L487.148,1064.81 C488.712,1066.38 491.248,1066.38 492.813,1064.81 C494.376,1063.25 494.376,1060.71 492.813,1059.15 L487.148,1053.48" id="cross" sketch:type="MSShapeGroup">
+          </path>
+        </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+  <!-- Dynamic step container -->
+  <div class="configurator-container" data-configurator></div>
+
+  <div class="total-price-display">
+    <div class="price-info">
+      <span class="total-price-label">Current Total:</span>
+      <span class="total-price-amount" data-current-total>$0.00</span>
+    </div>
+    <div class="weight-info" data-weight-info>
+      <span class="current-weight">Approx. Total Weight: <span class="weight-value">0</span> kg</span>
+      <!--<span class="separator">|</span>
+      <span class="weight-limit">Vehicle GVM: <span class="gvm-value">--</span> kg</span>-->
+    </div>
+  </div>
+</div>
+      
+
+<div class="quote-modal" id="quoteModal">
+  <div class="quote-modal-overlay"></div>
+  <div class="quote-modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Get Your Quote</h2>
+    <form id="quoteForm" class="quote-form" data-order-details>
+      <div class="form-group">
+        <label for="firstName">First Name *</label>
+        <input type="text" id="firstName" name="firstName" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name *</label>
+        <input type="text" id="lastName" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone *</label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="state">State *</label>
+        <select id="state" name="state" required>
+          <option value="">Select a state</option>
+          <option value="ACT">Australian Capital Territory</option>
+          <option value="NSW">New South Wales</option>
+          <option value="NT">Northern Territory</option>
+          <option value="QLD">Queensland</option>
+          <option value="SA">South Australia</option>
+          <option value="TAS">Tasmania</option>
+          <option value="VIC">Victoria</option>
+          <option value="WA">Western Australia</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="vehicleYear">Car Year</label>
+        <select id="vehicleYear" name="vehicleYear">
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+        <option value="2018">2018</option>
+        <option value="2017">2017</option>
+        <option value="2016">2016</option>
+        <option value="2015">2015</option>
+        <option value="2014">2014</option>
+        <option value="2013">2013</option>
+        <option value="2012">2012</option>
+        <option value="2011">2011</option>
+        <option value="2010">2010</option>
+        <option value="2009">2009</option>
+        <option value="2008">2008</option>
+        <option value="2007">2007</option>
+        <option value="2006">2006</option>
+        <option value="2005">2005</option>
+        <option value="2004">2004</option>
+        <option value="2003">2003</option>
+        <option value="2002">2002</option>
+        <option value="2001">2001</option>
+        <option value="2000">2000</option>
+        <option value="1999">1999</option>
+        <option value="1998">1998</option>
+        <option value="1997">1997</option>
+        <option value="1996">1996</option>
+        <option value="1995">1995</option>
+        <option value="1994">1994</option>
+        <option value="1993">1993</option>
+        <option value="1992">1992</option>
+        <option value="1991">1991</option>
+        <option value="1990">1990</option>
+        <option value="1989">1989</option>
+        <option value="1988">1988</option>
+        <option value="1987">1987</option>
+        <option value="1986">1986</option>
+        <option value="1985">1985</option>
+        <option value="1984">1984</option>
+        <option value="1983">1983</option>
+        <option value="1982">1982</option>
+        <option value="1981">1981</option>
+        <option value="1980">1980</option>
+        <option value="1979">1979</option>
+        <option value="1978">1978</option>
+        <option value="1977">1977</option>
+        <option value="1976">1976</option>
+        <option value="1975">1975</option>
+        <option value="1974">1974</option>
+        <option value="1973">1973</option>
+        <option value="1972">1972</option>
+        <option value="1971">1971</option>
+        <option value="1970">1970</option>
+        <option value="1969">1969</option>
+        <option value="1968">1968</option>
+        <option value="1967">1967</option>
+        <option value="1966">1966</option>
+        <option value="1965">1965</option>
+        <option value="1964">1964</option>
+        <option value="1963">1963</option>
+        <option value="1962">1962</option>
+        <option value="1961">1961</option>
+        <option value="1960">1960</option>
+      </select>
+      </div>
+      <div class="form-group">
+        <label for="vehicleDetails">Tell us about your vehicle</label>
+        <textarea id="vehicleDetails" name="vehicleDetails" rows="4" required></textarea>
+      </div>
+       <div class="form-group">
+        <textarea id="vehicleDetailsHidden" name="vehicleDetailsHidden" rows="4" required hidden></textarea>
+      </div>
+      <button type="submit" class="submit-quote" id="submit-quote">Submit Quote Request</button>
+    </form>
+  </div>
+  </div>
+</div>
+
+{{ 'configurator-data.js' | asset_url | script_tag }}
+{{ 'build-configurator.js' | asset_url | script_tag }}
+
+
+{% schema %}
+{
+  "name": "Product Configurator",
+  "settings": [
+    {
+      "type": "text",
+      "id": "configurator_title",
+      "label": "Configurator Title",
+      "default": "Quote Builder"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Configurator",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
